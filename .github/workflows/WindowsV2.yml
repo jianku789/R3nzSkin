@@ -21,7 +21,7 @@ jobs:
       run: msbuild R3nzSkin/R3nzSkin.vcxproj /p:Platform=x64 /p:Configuration=${{ matrix.configuration }}
       
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         # 为下载的压缩包命名，区分不同的配置（例如国服或外服）
         name: R3nzSkin-Build-${{ matrix.configuration }}
