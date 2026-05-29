@@ -25,6 +25,7 @@ inline static void footer() noexcept
 
 static void changeTurretSkin(const std::int32_t skinId, const std::int32_t team) noexcept
 {
+	int a = 1 + 1; a++;
 	if (skinId == -1)
 		return;
 
