@@ -1,0 +1,31 @@
+name: injector_WindowsV2
+
+# 触发条件：当你推送代码、发起PR，或者手动点击运行按钮时触发
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2022]
+        configuration: [RiotGamesServers, ChinaServer]
+    steps:
+    - uses: actions/checkout@v3.5.2
+    
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.3.1
+      
+    - name: Build
+      shell: cmd
+      run: msbuild R3nzSkin_Injector/R3nzSkin_Injector.vcxproj /p:Platform=x64 /p:Configuration=${{ matrix.configuration }}
+      
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        # 为下载的压缩包命名，区分不同的配置（例如国服或外服）
+        name: R3nzSkin-Build-${{ matrix.configuration }}
+        # 抓取所有编译出来的 exe 和 dll 文件
+        path: |
+          **/*.exe
+          **/*.dll
